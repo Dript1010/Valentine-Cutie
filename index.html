@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine 💘</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: #fff;
+      text-align: center;
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .page {
+      display: none;
+      height: 100vh;
+      padding: 20px;
+      box-sizing: border-box;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .page.active {
+      display: flex;
+    }
+
+    .photo {
+      width: 70vw;
+      max-width: 260px;
+      border-radius: 20px;
+      margin-bottom: 25px;
+    }
+
+    h1, h2 {
+      margin: 15px 0;
+    }
+
+    button {
+      width: 70vw;
+      max-width: 260px;
+      padding: 16px;
+      font-size: 20px;
+      border-radius: 16px;
+      border: none;
+      cursor: pointer;
+      background: black;
+      color: white;
+      margin: 12px 0;
+      transition: transform 0.3s ease;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      align-items: center;
+    }
+
+    /* Floating Penguin */
+    .global-penguin {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 90px;
+      animation: float 3s ease-in-out infinite;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+      100% { transform: translateY(0px); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating Penguin on Every Page -->
+  <img src="penguin.png" class="global-penguin">
+
+  <!-- PAGE 1 -->
+  <div class="page active" id="page1">
+    <img src="me.jpg" class="photo">
+    <button onclick="goToPage('page2')">Continue 💕</button>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="page" id="page2">
+    <h2>Will you be my Valentine Cutie🫶?</h2>
+    <div class="buttons">
+      <button onclick="yesPage()">Yes 😙</button>
+      <button onclick="goToPage('pageNo')">No 😔</button>
+    </div>
+  </div>
+
+  <!-- NO PAGE -->
+  <div class="page" id="pageNo">
+    <h2>Are you sure? 😔</h2>
+    <div class="buttons">
+      <button id="yesGrow" onclick="yesPage()">Yes 😙</button>
+      <button onclick="noClicked()">No 😔</button>
+    </div>
+  </div>
+
+  <!-- YES PAGE -->
+  <div class="page" id="pageYes">
+    <img src="me.jpg" class="photo">
+    <h1>Yayyy 😙</h1>
+  </div>
+
+  <script>
+    let noCount = 0;
+
+    function goToPage(pageId) {
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+      });
+      document.getElementById(pageId).classList.add('active');
+    }
+
+    function yesPage() {
+      goToPage('pageYes');
+    }
+
+    function noClicked() {
+      noCount++;
+      const yesButton = document.getElementById("yesGrow");
+
+      let scale = 1 + noCount * 0.22;
+      yesButton.style.transform = `scale(${scale})`;
+
+      if (noCount >= 7) {
+        yesButton.style.width = "90vw";
+        yesButton.style.maxWidth = "320px";
+        yesButton.style.fontSize = "26px";
+      }
+    }
+  </script>
+
+</body>
+</html>
